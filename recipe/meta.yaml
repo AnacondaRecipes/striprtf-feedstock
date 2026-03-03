@@ -6,31 +6,31 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/striprtf-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/striprtf-{{ version }}.tar.gz
   sha256: 5a822d075e17417934ed3add6fc79b5fc8fb544fe4370b2f894cdd28f0ddd78e
 
 build:
-  noarch: python
   number: 0
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - striprtf = striprtf.striprtf:main
 
 requirements:
   host:
-    - python >=3.9
+    - python
     - pip
     - hatchling
   run:
-    - python >=3.9
+    - python
 
 test:
   imports:
     - striprtf
-  requires:
-    - pip
   commands:
     - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/joshy/striprtf
@@ -42,6 +42,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
+  doc_url: https://github.com/joshy/striprtf
   dev_url: https://github.com/joshy/striprtf
 
 extra:
