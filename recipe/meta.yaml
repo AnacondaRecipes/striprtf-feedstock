@@ -10,17 +10,19 @@ source:
   sha256: 5a822d075e17417934ed3add6fc79b5fc8fb544fe4370b2f894cdd28f0ddd78e
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  skip: true  # [py<310]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - striprtf = striprtf.striprtf:main
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - pip
     - hatchling
   run:
-    - python >={{ python_min }}
+    - python
 
 test:
   imports:
@@ -29,13 +31,19 @@ test:
     - pip check
   requires:
     - pip
-    - python {{ python_min }}
 
 about:
   home: https://github.com/joshy/striprtf
   summary: A simple library to convert rtf to text
+  description: |
+    striprtf is a simple library to convert rtf to text. It is meant for
+    extracting text from RTF files, particularly medical documents, into
+    plain text for easier parsing.
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE
+  doc_url: https://github.com/joshy/striprtf
+  dev_url: https://github.com/joshy/striprtf
 
 extra:
   recipe-maintainers:
